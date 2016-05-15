@@ -13,13 +13,13 @@ public class Main {
         try {
             System.out.println("Введите  число равное длительности включения зелленого света в минутах");
 
-            int greenTime = Integer.parseInt(reader.readLine()) * 10;
+            int greenTime = Integer.parseInt(reader.readLine()) * 60;
 
 
             System.out.println("Введите  число равное длительности красного света в минутах");
-            int redTime =Integer.parseInt(reader.readLine()) * 10;
+            int redTime =Integer.parseInt(reader.readLine()) * 60;
             System.out.println("Введите  число равное длительности желтого света в минутах");
-            int yellowTime = Integer.parseInt(reader.readLine()) * 10;
+            int yellowTime = Integer.parseInt(reader.readLine()) * 60;
 
 
             Svetofor svetofor = SvetoforBuilder.svetoforBuild(greenTime, redTime, yellowTime);
