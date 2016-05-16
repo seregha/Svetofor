@@ -68,10 +68,11 @@ class Light {
 enum Color {
     RED("красный свет"), GREEN("зеленый свет"), Yellow("желтый свет");
     private String color;
- String displyedColor(){
-    return color;
 
-}
+    String displyedColor() {
+        return color;
+
+    }
 
     Color(String displyedColor) {
         this.color = displyedColor;
@@ -79,6 +80,11 @@ enum Color {
 }
 
 class Svetofor {
+    Light green;
+    Light red;
+    Light yellow;
+
+
     public Svetofor(Light green, Light red, Light yellow) {
         this.green = green;
         this.red = red;
@@ -86,9 +92,6 @@ class Svetofor {
 
     }
 
-    Light green;
-    Light red;
-    Light yellow;
 
     void On() {
         green.oN();
@@ -99,9 +102,10 @@ class Svetofor {
 }
 
 class SvetoforBuilder {
-
+    static Svetofor svetofor;
 
     static Svetofor svetoforBuild(int green, int red, int yellow) {
+
 
 
         Light lightGreen = new LightBuilder()
@@ -117,36 +121,33 @@ class SvetoforBuilder {
                 .lightBuilder(Color.Yellow)
                 .timeBuilfer(yellow)
                 .lightBuild();
-        Svetofor svetofor = new Svetofor(lightGreen, lightRed, lightYellow);
-
-
-        return svetofor;
-    }
-        static Svetofor defaultSvetoforBuild(){
-            Light lightGreen = new LightBuilder()
-                    .lightBuilder(Color.GREEN)
-                    .timeBuilfer(120)
-                    .lightBuild();
-
-            Light lightRed = new LightBuilder()
-                    .lightBuilder(Color.RED)
-                    .timeBuilfer(300)
-                    .lightBuild();
-            Light lightYellow = new LightBuilder()
-                    .lightBuilder(Color.Yellow)
-                    .timeBuilfer(180)
-                    .lightBuild();
-            Svetofor svetofor = new Svetofor(lightGreen, lightRed, lightYellow);
-
+         svetofor= new Svetofor(lightGreen, lightRed, lightYellow);
 
 
         return svetofor;
     }
 
+    static Svetofor defaultSvetoforBuild() {
+        Light lightGreen = new LightBuilder()
+                .lightBuilder(Color.GREEN)
+                .timeBuilfer(120)
+                .lightBuild();
+
+        Light lightRed = new LightBuilder()
+                .lightBuilder(Color.RED)
+                .timeBuilfer(300)
+                .lightBuild();
+        Light lightYellow = new LightBuilder()
+                .lightBuilder(Color.Yellow)
+                .timeBuilfer(180)
+                .lightBuild();
+         svetofor = new Svetofor(lightGreen, lightRed, lightYellow);
+
+
+        return svetofor;
     }
 
-
-
+}
 
 
 class LightBuilder {
