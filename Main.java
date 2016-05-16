@@ -15,9 +15,9 @@ public class Main {
 }
 
 class Semaphore {
-    private int greenLightTime = 2;
-    private int redLightTime = 3;
-    private int yellowLightTime = 4;
+    private int greenLightTime = 0;
+    private int redLightTime = 2;
+    private int yellowLightTime = 5;
 
     void getColorOfSemaphoreInsteadOfMinut() {
 
@@ -49,8 +49,8 @@ class Semaphore {
     }
 
     private void getNowColorofSemaphore(double AllSecunds) {
-        if (AllSecunds > 0 && AllSecunds < greenLightTime) System.out.println(Color.GREEN.displyedColor());
-        if (AllSecunds > greenLightTime && AllSecunds < redLightTime) System.out.println(Color.RED.displyedColor());
+        if (AllSecunds > greenLightTime && AllSecunds < redLightTime) System.out.println(Color.GREEN.displyedColor());
+        if (AllSecunds > redLightTime && AllSecunds < yellowLightTime) System.out.println(Color.RED.displyedColor());
         if (AllSecunds > yellowLightTime && AllSecunds < 10) System.out.println(Color.Yellow.displyedColor());
     }
 
