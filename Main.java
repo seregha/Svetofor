@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        System.out.println("Введите длительность включения каждого цвета светофора  в цифрах.\n" +
+        System.out.println("Введите длительность включения каждого цвета светофора в виде целого числа.\n" +
                 "Если длтельность введена неправильно, программа выполнится со значениями по умолчанию.");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -97,9 +97,11 @@ class Svetofor {
 
 
     void On() {
-        green.oN();
-        red.oN();
-        yellow.oN();
+        while (true) {
+            green.oN();
+            red.oN();
+            yellow.oN();
+        }
     }
 
 }
