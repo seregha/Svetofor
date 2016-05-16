@@ -31,7 +31,7 @@ class Semaphore {
                 double minute = getAllSecund(zapros);
                 if(minute<0) {
                     System.out.println("Необходимо вводить положительно число");
-                } else getNowColorofSvetofor(minute);
+                } else getNowColorofSemaphore(minute);
 
             }
 
@@ -51,7 +51,7 @@ class Semaphore {
 
     }
 
-    private void getNowColorofSvetofor(double AllSecunds) {
+    private void getNowColorofSemaphore(double AllSecunds) {
         if (AllSecunds > 0 && AllSecunds < greenLightTime) System.out.println(Color.GREEN.displyedColor());
         if (AllSecunds > greenLightTime && AllSecunds < redLightTime) System.out.println(Color.RED.displyedColor());
         if (AllSecunds > yellowLightTime && AllSecunds < 10) System.out.println(Color.Yellow.displyedColor());
