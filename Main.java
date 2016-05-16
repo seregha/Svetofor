@@ -35,6 +35,9 @@ public class Main {
             Svetofor svetofor = SvetoforBuilder.defaultSvetoforBuild();
             svetofor.On();
         }
+        finally {
+            reader.close();
+        }
     }
 }
 
