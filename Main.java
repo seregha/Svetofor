@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) {
 
-            Semaphore semaphore = new Semaphore();
-            semaphore.getColorOfSemaphoreInsteadOfMinut();
-}
+        Semaphore semaphore = new Semaphore();
+        semaphore.getColorOfSemaphoreInsteadOfMinut();
+    }
 
 }
 
@@ -20,8 +20,9 @@ class Semaphore {
     private int yellowLightTime = 4;
 
     void getColorOfSemaphoreInsteadOfMinut() {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try ( BufferedReader reader =new BufferedReader(new InputStreamReader(System.in)))
+        {
             while (true) {
 
 
@@ -29,16 +30,19 @@ class Semaphore {
                 String zapros = reader.readLine();
 
                 double minute = getAllSecund(zapros);
-                if(minute<0) {
+                if (minute < 0) {
                     System.out.println("Необходимо вводить положительно число");
                 } else getNowColorofSemaphore(minute);
 
             }
 
 
-        } catch (IOException  | NumberFormatException e) {
+
+        } catch (IOException | NumberFormatException e) {
             System.out.println("Введены недоспустимые символы!");
         }
+
+
     }
 
     private double getAllSecund(String setMinut) throws NumberFormatException {
