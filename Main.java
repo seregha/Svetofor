@@ -6,75 +6,77 @@ import java.io.InputStreamReader;
  * Created by Сергей on 14.05.2016.
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        System.out.println("Введите длительность включения каждого цвета светофора в виде целого числа.\n" +
-                "Если длтельность введена неправильно, программа выполнится со значениями по умолчанию.");
+            Semaphore semaphore = new Semaphore();
+            semaphore.getColorOfSemaphoreInsteadOfMinut();
+}
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+}
 
+class Semaphore {
+    private int greenLightTime = 2;
+    private int redLightTime = 3;
+    private int yellowLightTime = 4;
 
+    void getColorOfSemaphoreInsteadOfMinut() {
         try {
-            System.out.println("Введите  число равное длительности включения зелленого света в минутах:");
-
-            int greenTime = Integer.parseInt(reader.readLine()) * 60;
-
-
-            System.out.println("Введите  число равное длительности красного света в минутах:");
-            int redTime = Integer.parseInt(reader.readLine()) * 60;
-            System.out.println("Введите  число равное длительности желтого света в минутах:");
-            int yellowTime = Integer.parseInt(reader.readLine()) * 60;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
 
 
-            Svetofor svetofor = SvetoforBuilder.svetoforBuild(greenTime, redTime, yellowTime);
+                System.out.println("Введите минуту:");
+                String zapros = reader.readLine();
 
-            svetofor.On();
-        } catch (NumberFormatException e) {
-            System.out.println("Вы ввели недопустимые данные. Будут применены параметры по умолчанию");
+                double minute = getAllSecund(zapros);
+                if(minute<0) {
+                    System.out.println("Необходимо вводить положительно число");
+                } else getNowColorofSvetofor(minute);
 
-            Svetofor svetofor = SvetoforBuilder.defaultSvetoforBuild();
-            svetofor.On();
-        }
-        finally {
-            reader.close();
-        }
-    }
-}
-
-class Light {
-    private int lightTime;
-    private Color colorLight;
-
-
-    public void setLightTime(int lightTime) {
-        this.lightTime = lightTime;
-    }
-
-
-    public void setColorLight(Color colorLight) {
-        this.colorLight = colorLight;
-    }
-
-    void oN() {
-        for (int i = lightTime; i > 0; i--) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-            System.out.println("Сейчас горит " + colorLight.displyedColor() + ", осталось " + i + " секунд");
+
+
+        } catch (IOException  | NumberFormatException e) {
+            System.out.println("Введены недоспустимые символы!");
         }
     }
-}
 
+    private double getAllSecund(String setMinut) throws NumberFormatException {
+
+
+        int minut = Integer.parseInt(setMinut) % 10;
+
+
+        return minut + 0.001;
+
+    }
+
+    private void getNowColorofSvetofor(double AllSecunds) {
+        if (AllSecunds > 0 && AllSecunds < greenLightTime) System.out.println(Color.GREEN.displyedColor());
+        if (AllSecunds > greenLightTime && AllSecunds < redLightTime) System.out.println(Color.RED.displyedColor());
+        if (AllSecunds > yellowLightTime && AllSecunds < 10) System.out.println(Color.Yellow.displyedColor());
+    }
+
+
+    public void setGreenLightTime(int greenLightTime) {
+        this.greenLightTime = greenLightTime;
+    }
+
+    public void setRedLightTime(int redLightTime) {
+        this.redLightTime = redLightTime;
+    }
+
+    public void setYellowLightTime(int yellowLightTime) {
+        this.yellowLightTime = yellowLightTime;
+    }
+}
 
 enum Color {
-    RED("красный свет"), GREEN("зеленый свет"), Yellow("желтый свет");
+    RED(" горит красный свет"), GREEN(" горит зеленый свет"), Yellow(" горит желтый свет");
     private String color;
 
     String displyedColor() {
         return color;
-
     }
 
     Color(String displyedColor) {
@@ -82,101 +84,4 @@ enum Color {
     }
 }
 
-class Svetofor {
-    Light green;
-    Light red;
-    Light yellow;
-
-
-    public Svetofor(Light green, Light red, Light yellow) {
-        this.green = green;
-        this.red = red;
-        this.yellow = yellow;
-
-    }
-
-
-    void On() {
-        while (true) {
-            green.oN();
-            red.oN();
-            yellow.oN();
-        }
-    }
-
-}
-
-class SvetoforBuilder {
-    static Svetofor svetofor;
-
-    static Svetofor svetoforBuild(int green, int red, int yellow) {
-
-
-
-        Light lightGreen = new LightBuilder()
-                .lightBuilder(Color.GREEN)
-                .timeBuilfer(green)
-                .lightBuild();
-
-        Light lightRed = new LightBuilder()
-                .lightBuilder(Color.RED)
-                .timeBuilfer(red)
-                .lightBuild();
-        Light lightYellow = new LightBuilder()
-                .lightBuilder(Color.Yellow)
-                .timeBuilfer(yellow)
-                .lightBuild();
-         svetofor= new Svetofor(lightGreen, lightRed, lightYellow);
-
-
-        return svetofor;
-    }
-
-    static Svetofor defaultSvetoforBuild() {
-        Light lightGreen = new LightBuilder()
-                .lightBuilder(Color.GREEN)
-                .timeBuilfer(120)
-                .lightBuild();
-
-        Light lightRed = new LightBuilder()
-                .lightBuilder(Color.RED)
-                .timeBuilfer(300)
-                .lightBuild();
-        Light lightYellow = new LightBuilder()
-                .lightBuilder(Color.Yellow)
-                .timeBuilfer(180)
-                .lightBuild();
-         svetofor = new Svetofor(lightGreen, lightRed, lightYellow);
-
-
-        return svetofor;
-    }
-
-}
-
-
-class LightBuilder {
-    private int lightTime;
-    private Color colorLight;
-
-    LightBuilder timeBuilfer(int time) {
-        this.lightTime = time;
-
-        return this;
-    }
-
-    LightBuilder lightBuilder(Color color) {
-        this.colorLight = color;
-        return this;
-
-    }
-
-    Light lightBuild() {
-        Light light = new Light();
-        light.setColorLight(colorLight);
-        light.setLightTime(lightTime);
-        return light;
-    }
-
-}
 
