@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
+
+        System.out.println("Введите длительность включения каждого цвета светофора  в цифрах.\n" +
+                "Если длтельность введена неправильно, программа выполнится со значениями по умолчанию");
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 
@@ -17,7 +21,7 @@ public class Main {
 
 
             System.out.println("Введите  число равное длительности красного света в минутах");
-            int redTime =Integer.parseInt(reader.readLine()) * 60;
+            int redTime = Integer.parseInt(reader.readLine()) * 60;
             System.out.println("Введите  число равное длительности желтого света в минутах");
             int yellowTime = Integer.parseInt(reader.readLine()) * 60;
 
@@ -26,7 +30,10 @@ public class Main {
 
             svetofor.On();
         } catch (NumberFormatException e) {
-            System.out.println("Вы ввели недопустимый символ");
+            System.out.println("Вы ввели недопустимые данные. Будут применены параметры по умолчанию");
+
+            Svetofor svetofor = SvetoforBuilder.defaultSvetoforBuild();
+            svetofor.On();
         }
     }
 }
@@ -52,13 +59,23 @@ class Light {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Сейчас горит " + colorLight + ", осталось " + i + " секунд");
+            System.out.println("Сейчас горит " + colorLight.displyedColor() + ", осталось " + i + " секунд");
         }
     }
 }
 
+
 enum Color {
-    RED, GREEN, Yellow, NonColor;
+    RED("красный свет"), GREEN("зеленый свет"), Yellow("желтый свет");
+    private String color;
+ String displyedColor(){
+    return color;
+
+}
+
+    Color(String displyedColor) {
+        this.color = displyedColor;
+    }
 }
 
 class Svetofor {
@@ -105,13 +122,36 @@ class SvetoforBuilder {
 
         return svetofor;
     }
+        static Svetofor defaultSvetoforBuild(){
+            Light lightGreen = new LightBuilder()
+                    .lightBuilder(Color.GREEN)
+                    .timeBuilfer(120)
+                    .lightBuild();
+
+            Light lightRed = new LightBuilder()
+                    .lightBuilder(Color.RED)
+                    .timeBuilfer(300)
+                    .lightBuild();
+            Light lightYellow = new LightBuilder()
+                    .lightBuilder(Color.Yellow)
+                    .timeBuilfer(180)
+                    .lightBuild();
+            Svetofor svetofor = new Svetofor(lightGreen, lightRed, lightYellow);
 
 
-}
+
+        return svetofor;
+    }
+
+    }
+
+
+
+
 
 class LightBuilder {
     private int lightTime;
-    private Color colorLight = Color.NonColor;
+    private Color colorLight;
 
     LightBuilder timeBuilfer(int time) {
         this.lightTime = time;
