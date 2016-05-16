@@ -21,10 +21,8 @@ class Semaphore {
 
     void getColorOfSemaphoreInsteadOfMinut() {
 
-        try ( BufferedReader reader =new BufferedReader(new InputStreamReader(System.in)))
-        {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             while (true) {
-
 
                 System.out.println("Введите минуту:");
                 String zapros = reader.readLine();
@@ -36,20 +34,15 @@ class Semaphore {
 
             }
 
-
-
         } catch (IOException | NumberFormatException e) {
             System.out.println("Введены недоспустимые символы!");
         }
-
 
     }
 
     private double getAllSecund(String setMinut) throws NumberFormatException {
 
-
         int minut = Integer.parseInt(setMinut) % 10;
-
 
         return minut + 0.001;
 
