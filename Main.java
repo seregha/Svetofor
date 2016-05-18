@@ -28,8 +28,6 @@ class Semaphore {
 
                 System.out.println("Введите минуту:");
                 String zapros = reader.readLine();
-
-
                 int minutWithoutSec = getOnlyMinut(zapros);
                 if (minutWithoutSec < 0) {
                     System.out.println("Необходимо вводить положительно число");
@@ -50,10 +48,10 @@ class Semaphore {
     }
 
     private void getNowColorofSemaphore(double askingMinuts) {
-     if (askingMinuts >= startCicle && askingMinuts < greenLightTime) System.out.println("горит красный свет");
+
         if (askingMinuts >= greenLightTime && askingMinuts < yellowLightTime) System.out.println("горит зеленый свет");
         if (askingMinuts >= yellowLightTime && askingMinuts < redLightTime) System.out.println("горит желтый свет");
-        if (askingMinuts >= redLightTime && askingMinuts < endCicle) System.out.println("горит красный свет");
+        if (askingMinuts >= redLightTime | askingMinuts <greenLightTime) System.out.println("горит красный свет");
 
 
     }
